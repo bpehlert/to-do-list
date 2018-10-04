@@ -3,6 +3,7 @@ h1{
   text-align: center;
   width: 50%;
   margin: 50px auto 50px auto;
+  cursor: pointer;
 }
 
 ul{
@@ -27,6 +28,15 @@ input{
   font-size: 1em;
   width: 300px;
 }
+
+.titleInput{
+  border: none;
+  text-align: center;
+}
+.titleInput:focus{
+  outline:none;
+}
+
 
 .addButton{
   font-family: 'Roboto', sans-serif;
