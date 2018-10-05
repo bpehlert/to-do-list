@@ -1,35 +1,48 @@
-const header = document.querySelector("h1");
-const list = document.querySelector("#list");
+const ul = document.getElementById('list');
+const addBtn = document.getElementById('addBtn');
+const newItem = document.getElementById('newItem');
+const listItems = document.querySelectorAll('li');
 
-// Function that allows the user to update the title of the list through a prompt.
-const changeTitle = () =>{
-  let title = prompt("Enter new title")
-  header.innerText = title;
+
+const createNew = () => {
+  let li = document.createElement("li");
+  li.appendChild(document.createTextNode(newItem.value));
+  ul.appendChild(li);
+  newItem.value = "";
+}
+
+// Add event listener to add button
+addBtn.addEventListener("click", () => {
+  if (newItem.value.length > 0) {
+    createNew()
+  }
+});
+
+// Adds event listener to input field
+newItem.addEventListener("keypress", (event)=> {
+  if (newItem.value.length > 0 && event.keyCode === 13) {
+    createNew()
+  }
+});
+
+// Function that adds event listeners to all li elements
+const addListeners = () => {
+  listItems.forEach((item) => {
+    item.addEventListener("click", () => {
+      item.classList.toggle("done");
+    })
+  });
 };
 
-header.addEventListener("click", changeTitle);
-
-const addItem = () => {
-  let itemValue = document.querySelector("#new").value;
-  let newItem = document.createElement("li");
-  newItem.appendChild(itemValue);
-  list.appendChild(newItem);
-  console.log(newItem);
-
-};
+// Function that checks to see if there are any items on list
+const checkIfList = () => {
+  if (listItems.length === 0) {
+    let p = document.createElement('p');
+    p.appendChild(document.createTextNode("No items on your to do list."))
+    ul.appendChild(p);
+  }
+}
 
 
-
-// Function that changes the title by creating a input box.
-// const changeTitle = () =>{
-//   let title = header.innerText;
-//   header.innerHTML = '<input class="titleInput" type="text" name="" value="" placeholder="' + title + '">';
-//   header.firstChild.focus();
-// };
-
-// // Function that toggles the color of h1 back and forth.
-// let count = 1
-// const headerChange = () => {
-//   (count%2 == 0) ? header.style.color = "black" : header.style.color = "red";
-//   count++;
-// };
+checkIfList();
+addListeners();
