@@ -3,10 +3,11 @@ const addBtn = document.getElementById('addBtn');
 const newItem = document.getElementById('newItem');
 const listItems = document.querySelectorAll('li');
 
-
+// Creates new li element and appends it to the ul
 const createNew = () => {
   let li = document.createElement("li");
   li.appendChild(document.createTextNode(newItem.value));
+  addDeleteBtn(li);
   ul.appendChild(li);
   newItem.value = "";
 }
@@ -26,11 +27,27 @@ newItem.addEventListener("keypress", (event)=> {
 });
 
 // Function that adds event listeners to all li elements
-const addListeners = () => {
+const addListeners = (item) => {
+  item.addEventListener("click", () => {
+    item.classList.toggle("done");
+  });
+};
+
+// Function to add delete buttons to each li elements
+const addDeleteBtn = (item) => {
+  let btn = document.createElement("button");
+  btn.appendChild(document.createTextNode("x"));
+  btn.addEventListener("click", () => {
+    item.parentNode.removeChild(item);
+  });
+  item.appendChild(btn);
+}
+
+// function that loops through each li element
+const loopElements = () => {
   listItems.forEach((item) => {
-    item.addEventListener("click", () => {
-      item.classList.toggle("done");
-    })
+    addListeners(item);
+    addDeleteBtn(item);
   });
 };
 
@@ -45,4 +62,4 @@ const checkIfList = () => {
 
 
 checkIfList();
-addListeners();
+loopElements();
