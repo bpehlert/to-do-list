@@ -26,10 +26,16 @@ newItem.addEventListener("keypress", (event)=> {
   }
 });
 
-// Adds event listeners to all li elements to toggle done class
+// Adds event listeners to all li elements to toggle done class and show the delete button
 const addListeners = (item) => {
   item.addEventListener("click", () => {
     item.classList.toggle("done");
+  });
+  item.addEventListener("mouseover", () => {
+    item.children[0].classList.remove("toggleBtn");
+  });
+  item.addEventListener("mouseleave", () => {
+    item.children[0].classList.add("toggleBtn");
   });
 };
 
@@ -37,6 +43,7 @@ const addListeners = (item) => {
 const addDeleteBtn = (item) => {
   let btn = document.createElement("button");
   btn.appendChild(document.createTextNode("x"));
+  btn.classList.add("deleteBtn", "toggleBtn");
   btn.addEventListener("click", () => {
     item.parentNode.removeChild(item);
   });

@@ -9,7 +9,7 @@ input{
   font-size: 1em;
   border: 1px solid #757D75;
   border-radius: 5px;
-  padding: 3px 5px;
+  padding: 4px 5px;
 }
 input:focus{
   outline: 0;
@@ -35,9 +35,29 @@ input:focus{
   outline: 0;
 }
 
-ul{
-  text-align: center;
+.deleteBtn{
+  background-color: #ECF0F1;
   font-family: 'Roboto', sans-serif;
+  font-size: .8em;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-left: 10px;
+  border: none;
+}
+.toggleBtn{
+  display: none;
+}
+
+ul{
+  font-family: 'Roboto', sans-serif;
+  list-style: none;
+  padding-left: 0px;
+  margin: 25px 30%;
+}
+
+li{
+  padding: 8px 0;
+  cursor: pointer;
 }
 
 .done{
