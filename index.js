@@ -2,7 +2,7 @@ const ul = document.getElementById('list');
 const addBtn = document.getElementById('addBtn');
 const newInput = document.getElementById('newInput');
 
-// Fetching practice JSON to do list
+// Fetchs placeholder JSON and runs function to load items
 const fetchJSON = async () => {
   const res = await fetch('https://jsonplaceholder.typicode.com/todos');
   const json = await res.json();
