@@ -1,32 +1,41 @@
 const ul = document.getElementById('list');
 const addBtn = document.getElementById('addBtn');
-const newItem = document.getElementById('newItem');
-const listItems = document.querySelectorAll('li');
+const newInput = document.getElementById('newInput');
 
-// Creates new li element and appends it to the ul
-const createNew = () => {
-  let li = document.createElement("li");
-  li.appendChild(document.createTextNode(newItem.value));
-  addDeleteBtn(li);
-  ul.appendChild(li);
-  newItem.value = "";
+// Fetching practice JSON to do list
+const fetchJSON = async () => {
+  const res = await fetch('https://jsonplaceholder.typicode.com/todos');
+  const json = await res.json();
+  loadList(json);
 }
 
-// Add event listener to add button
-addBtn.addEventListener("click", () => {
-  if (newItem.value.length > 0) {
-    createNew()
-  }
-});
+fetchJSON();
 
-// Adds event listener to input field
-newItem.addEventListener("keypress", (event)=> {
-  if (newItem.value.length > 0 && event.keyCode === 13) {
-    createNew()
-  }
-});
+// Loads JSON to do items to DOM
+const loadList = (array) => {
+  array.forEach((obj) => {
+    let li = document.createElement("li");
+    li.appendChild(document.createTextNode(obj.title));
+    addDeleteBtn(li);
+    addListeners(li);
+    if (!obj.completed) {
+      li.classList.toggle("done");
+    }
+    ul.appendChild(li);
+  });
+};
 
-// Adds event listeners to all li elements to toggle done class and show the delete button
+// Creates new li element and appends it to the ul
+const createNew = (item) => {
+  let li = document.createElement("li");
+  li.appendChild(document.createTextNode(item.value));
+  addDeleteBtn(li);
+  addListeners(li);
+  ul.appendChild(li);
+  newInput.value = "";
+}
+
+// Adds event listeners to all li elements to toggle done class and show the delete button on hover
 const addListeners = (item) => {
   item.addEventListener("click", () => {
     item.classList.toggle("done");
@@ -50,22 +59,16 @@ const addDeleteBtn = (item) => {
   item.appendChild(btn);
 }
 
-// function that loops through each li element
-const loopElements = () => {
-  listItems.forEach((item) => {
-    addListeners(item);
-    addDeleteBtn(item);
-  });
-};
+// Add event listener to add button
+addBtn.addEventListener("click", () => {
+  if (newInput.value.length > 0) {
+    createNew(newInput)
+  }
+});
 
-// // Function that checks to see if there are any items on list
-// const checkIfList = () => {
-//   if (listItems.length === 0) {
-//     let p = document.createElement('p');
-//     p.appendChild(document.createTextNode("No items on your to do list."))
-//     ul.appendChild(p);
-//   }
-// }
-// checkIfList();
-
-loopElements();
+// Adds event listener to input field
+newInput.addEventListener("keypress", (event)=> {
+  if (newInput.value.length > 0 && event.keyCode === 13) {
+    createNew(newInput)
+  }
+});
