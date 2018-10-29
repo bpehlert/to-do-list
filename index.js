@@ -2,33 +2,24 @@ const ul = document.getElementById('list');
 const addBtn = document.getElementById('addBtn');
 const newInput = document.getElementById('newInput');
 
-// Fetchs placeholder JSON and runs function to load items
-const fetchJSON = async () => {
+// Fetchs placeholder JSON and runs anonymous function to load items
+(async () => {
   const res = await fetch('https://jsonplaceholder.typicode.com/todos');
   const json = await res.json();
   loadList(json);
-}
+})();
 
-fetchJSON();
-
-// Loads JSON to do items to DOM
-const loadList = (array) => {
-  array.forEach((obj) => {
-    let li = document.createElement("li");
-    li.appendChild(document.createTextNode(obj.title));
-    addDeleteBtn(li);
-    addListeners(li);
-    if (!obj.completed) {
-      li.classList.toggle("done");
-    }
-    ul.appendChild(li);
+// Loads JSON to do items to DOM and adds delete button and listeners
+const loadList = (json) => {
+  json.forEach((obj) => {
+    createNew(obj.title);
   });
 };
 
 // Creates new li element and appends it to the ul
 const createNew = (item) => {
   let li = document.createElement("li");
-  li.appendChild(document.createTextNode(item.value));
+  li.appendChild(document.createTextNode(item));
   addDeleteBtn(li);
   addListeners(li);
   ul.appendChild(li);
@@ -62,13 +53,13 @@ const addDeleteBtn = (item) => {
 // Add event listener to add button
 addBtn.addEventListener("click", () => {
   if (newInput.value.length > 0) {
-    createNew(newInput)
+    createNew(newInput.value)
   }
 });
 
 // Adds event listener to input field
 newInput.addEventListener("keypress", (event)=> {
   if (newInput.value.length > 0 && event.keyCode === 13) {
-    createNew(newInput)
+    createNew(newInput.value)
   }
 });
