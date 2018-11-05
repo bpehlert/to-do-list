@@ -12,12 +12,12 @@ const newInput = document.getElementById('newInput');
 // Loads JSON to do items to DOM and adds delete button and listeners
 const loadList = (json) => {
   json.forEach((obj) => {
-    createNew(obj.title);
+    createNewToDo(obj.title);
   });
 };
 
 // Creates new li element and appends it to the ul
-const createNew = (item) => {
+const createNewToDo = (item) => {
   let li = document.createElement("li");
   li.appendChild(document.createTextNode(item));
   addDeleteBtn(li);
@@ -53,13 +53,13 @@ const addDeleteBtn = (item) => {
 // Add event listener to add button
 addBtn.addEventListener("click", () => {
   if (newInput.value.length > 0) {
-    createNew(newInput.value)
+    createNewToDo(newInput.value)
   }
 });
 
 // Adds event listener to input field
 newInput.addEventListener("keypress", (event)=> {
   if (newInput.value.length > 0 && event.keyCode === 13) {
-    createNew(newInput.value)
+    createNewToDo(newInput.value)
   }
 });
