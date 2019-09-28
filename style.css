@@ -38,3 +38,11 @@ button:hover {
 button:focus {
   outline: 0;
 }
+
+ul {
+  cursor: pointer;
+}
+
+.done {
+  text-decoration: line-through;
+}
