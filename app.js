@@ -18,18 +18,28 @@ function deleteItem() {
   ul.removeChild(this.parentNode);
 }
 
+// Refactor with event delegation in mind: add click listener to ul,
+// but add check to see if it is a click on button or li
 function createItem() {
   const item = document.createElement("span");
   const li = document.createElement("li");
   const deleteBtn = document.createElement("button");
+
   li.appendChild(document.createTextNode(userInput.value));
+  li.addEventListener("click", toggleDone);
+
   deleteBtn.appendChild(document.createTextNode("x"));
   deleteBtn.addEventListener("click", deleteItem);
-  li.addEventListener("click", toggleDone);
+
   item.append(li, deleteBtn);
   ul.appendChild(item);
+
   userInput.value = "";
 }
 
 addBtn.addEventListener("click", onClick);
 userInput.addEventListener("keypress", onKeypress);
+
+const print = (() => {
+  console.log("hello");
+})();
